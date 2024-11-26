@@ -21,7 +21,11 @@ const StockChart = () => {
 
     useEffect(() => {
         fetchData('1d');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        const path = window.location.pathname;
+        const extractedPart = path.split('/')[1];
+        setActiveSection(extractedPart);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleChangeSection = ({ section }) => {

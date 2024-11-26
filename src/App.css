@@ -24,7 +24,6 @@
 .current-price {
   top: 60px;
   left: 60px;
-  opacity: 0px;
   font-family: Circular Std;
   font-size: 70px;
   font-weight: 400;
@@ -37,7 +36,6 @@
 
 .currency {
   gap: 0px;
-  opacity: 0px;
   font-family: Circular Std;
   font-size: 24px;
   font-weight: 400;
@@ -53,7 +51,6 @@
   top: 159px;
   left: 60px;
   gap: 0px;
-  opacity: 0px;
   font-family: Circular Std;
   font-size: 18px;
   font-weight: 400;
@@ -84,7 +81,6 @@
   top: 222px;
   left: 60px;
   gap: 0px;
-  opacity: 0px;
   font-family: Circular Std;
   font-size: 18px;
   font-weight: 400;
@@ -107,7 +103,6 @@
   width: 90%;
   display: flex;
   justify-content: space-between;
-  opacity: 0px;
   font-family: Circular Std;
   font-size: 18px;
   font-weight: 400;
@@ -135,7 +130,6 @@
   left: 541px;
   gap: 0px;
   border-radius: 5px;
-  opacity: 0px;
   font-family: Circular Std;
   font-size: 18px;
   font-weight: 400;

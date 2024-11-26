@@ -15,7 +15,7 @@ const StockChart = () => {
 
     const sections = ['Summary', 'Charts', 'Statistics', 'Analytics', 'Settings']
 
-    const [activeSection, setActiveSection] = useState('charts')
+    const [activeSection, setActiveSection] = useState('summary')
 
     const navigate = useNavigate()
 

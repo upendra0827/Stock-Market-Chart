@@ -8,9 +8,7 @@ const StockDataContext = createContext();
 export const useStockData = () => useContext(StockDataContext);
 
 const handleFetchStockDetails = async (url) => {
-    const response = await axios.get(url, {
-        headers: { "User-Agent": "request" },
-    });
+    const response = await axios.get(url);
     return response
 }
 

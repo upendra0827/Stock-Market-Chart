@@ -12,6 +12,7 @@ const AppRoutes = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<StockChart />}>
+                    <Route index element={<Summary />} />
                     <Route path="charts" element={<LineChart />} />
                     <Route path="summary" element={<Summary />} />
                     <Route path="statistics" element={<Statistics />} />

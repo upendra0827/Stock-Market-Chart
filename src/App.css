@@ -1,3 +1,4 @@
+/* Base styles */
 .App {
   text-align: center;
   display: flex;
@@ -8,9 +9,11 @@
 
 .charts__container {
   margin-top: 100px;
-  width: 1000px;
+  width: 100%;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
+  padding: 0 20px;
 }
 
 .charts__container>header {
@@ -19,45 +22,35 @@
 
 .charts__container>header>div {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .current-price {
-  top: 60px;
-  left: 60px;
   font-family: Circular Std;
   font-size: 70px;
   font-weight: 400;
   line-height: 88.56px;
   text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
   color: #1A243A;
 }
 
 .currency {
-  gap: 0px;
   font-family: Circular Std;
   font-size: 24px;
   font-weight: 400;
   text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
   color: #BDBEBF;
   padding-top: 20px;
 }
 
 .percentage-change {
-  height: 23px;
-  top: 159px;
-  left: 60px;
   gap: 0px;
   font-family: Circular Std;
   font-size: 18px;
   font-weight: 400;
   line-height: 22.77px;
   text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
 }
 
 .negative {
@@ -75,24 +68,20 @@
   justify-content: flex-start;
   margin: 20px auto;
   border-bottom: 1px solid #EFF1F3;
+  flex-wrap: wrap;
 }
 
 .charts__container__sections>button {
-  top: 222px;
-  left: 60px;
-  gap: 0px;
   font-family: Circular Std;
   font-size: 18px;
   font-weight: 400;
   line-height: 22.77px;
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
   color: #6F7177;
   border: none;
   padding-bottom: 10px;
   background-color: transparent;
   cursor: pointer;
+  padding-left: 0;
 }
 
 .active-section {
@@ -100,16 +89,13 @@
 }
 
 .charts__container__intervals {
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   font-family: Circular Std;
   font-size: 18px;
   font-weight: 400;
   line-height: 22.77px;
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
   color: #6F7177;
 }
 
@@ -126,18 +112,12 @@
   cursor: pointer;
   width: 49px;
   height: 33px;
-  top: 325px;
-  left: 541px;
-  gap: 0px;
   border-radius: 5px;
   font-family: Circular Std;
   font-size: 18px;
   font-weight: 400;
   line-height: 22.77px;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
   color: #6F7177;
-
 }
 
 .active {
@@ -146,7 +126,9 @@
 }
 
 .chart {
-  width: 90%;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .statistics {
@@ -154,9 +136,119 @@
 }
 
 .arrow_box {
-  /* position: absolute; */
   padding: 10px;
   background-color: black;
   color: white;
-  /* margin-left: 200px; */
+}
+
+@media (max-width: 768px) {
+  .App {
+    padding: 20px;
+  }
+
+  .charts__container {
+    margin-top: 60px;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .current-price {
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .currency {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .percentage-change {
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .charts__container__sections {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .charts__container__sections>button {
+    font-size: 16px;
+    padding-bottom: 5px;
+  }
+
+  .charts__container__intervals {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .charts__container__intervals button {
+    width: 45px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .chart {
+    width: 100%;
+  }
+
+  .arrow_box {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .current-price {
+    font-size: 30px;
+    line-height: 40px;
+  }
+
+  .currency {
+    font-size: 16px;
+    padding-top: 10px;
+  }
+
+  .percentage-change {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .charts__container__sections {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .charts__container__sections>button {
+    font-size: 14px;
+    padding-bottom: 5px;
+  }
+
+  .charts__container__intervals {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .charts__container__intervals>:nth-child(1) {
+    display: none;
+  }
+
+  .charts__container__intervals button {
+    width: 40px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .arrow_box {
+    font-size: 10px;
+    padding: 5px;
+  }
 }

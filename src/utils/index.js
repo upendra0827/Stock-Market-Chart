@@ -5,7 +5,6 @@ export function extractValueAndUnit(input) {
 }
 
 export function processStockData(data, interval) {
-    const { value, unit } = extractValueAndUnit(interval)
 
     let formattedData = [];
 
@@ -41,17 +40,7 @@ export function processStockData(data, interval) {
         });
     }
 
-    if (unit === 'd') {
-        // formattedData = formattedData.slice(0, value)
-    } else if (unit === 'w') {
-        formattedData = formattedData.slice(0, value * 7)
-    } else if (unit === 'm') {
-        formattedData = formattedData.slice(0, value*4)
-    } else if (unit === 'y') {
-        formattedData = formattedData.slice(0, value*12)
-    }
-
-    const categories = formattedData.map((entry) => entry.timestamp).reverse()    
+    const categories = formattedData.map((entry) => entry.timestamp).reverse()
 
     const series = [
         // {

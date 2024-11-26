@@ -1,24 +1,18 @@
 import React, { createContext, useContext, useState } from "react";
-import axios from "axios";
 import { processStockData } from "../utils";
-import { URLs } from "../URLs";
+import { fetchStockData } from "../store";
+import { extractValueAndUnit } from "../utils";
 
 const StockDataContext = createContext();
 
 export const useStockData = () => useContext(StockDataContext);
 
-const handleFetchStockDetails = async (url) => {
-    const response = await axios.get(url);
+const handleFetchStockDetails = async (interval) => {
+    const { value, unit } = extractValueAndUnit(interval)
+
+    const response = await fetchStockData({ unit })
     return response
 }
-
-const TIMESERIESKEYS = {
-    '1d': 'TIME_SERIES_INTRADAY',
-    '3d': 'TIME_SERIES_DAILY',
-    '1w': 'TIME_SERIES_DAILY',
-    '1m': 'TIME_SERIES_WEEKLY',
-    '1y': 'TIME_SERIES_MONTHLY'
-};
 
 const StockDataProvider = ({ children }) => {
     const [stockData, setStockData] = useState(null);
@@ -26,26 +20,15 @@ const StockDataProvider = ({ children }) => {
     const [error, setError] = useState(null);
 
     const fetchData = async (interval) => {
-        const url = URLs.STOCK_DETAILS.replace('{interval}', TIMESERIESKEYS[interval])
-
-        if (localStorage.getItem(url)) {
-            const cachedData = JSON.parse(localStorage.getItem(url));
-            const processedData = processStockData(cachedData, interval);
-            setStockData(processedData);
-
-            return;
-        }
 
         try {
             setLoading(true);
-            const response = await handleFetchStockDetails(url)
+            const response = await handleFetchStockDetails(interval)
 
             if (response.status === 200) {
                 const rawData = response.data;
 
-                localStorage.setItem(url, JSON.stringify(rawData));
-
-                const processedData = processStockData(rawData);
+                const processedData = processStockData(rawData, interval);
                 setStockData(processedData);
             } else {
                 console.log("Status:", response.status);

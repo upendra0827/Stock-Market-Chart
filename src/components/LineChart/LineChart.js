@@ -39,6 +39,8 @@ const LineChart = () => {
         handleUpdateQueryParams('interval', value);
     };
 
+    const isMobile = window.innerWidth < 768;
+
     useEffect(() => {
         const filterValue = getFilterValue('interval');
         setActiveInterval(filterValue || '1d');
@@ -52,16 +54,16 @@ const LineChart = () => {
             layout: {
                 textColor: 'white',
                 background: { type: 'solid', color: 'white' },
-                fontSize: 18,
+                fontSize: isMobile ? 16 : 18,
                 fontFamily: 'Circular Std',
-                crosshairMarkerVisible: false, 
+                crosshairMarkerVisible: false,
             },
             grid: {
                 vertLines: { visible: true },
                 horzLines: { visible: false },
             },
             timeScale: {
-                borderVisible: true, 
+                borderVisible: true,
                 borderColor: '#E2E4E7',
                 visible: false,
                 tickMarkFormatter: () => "",
@@ -72,10 +74,12 @@ const LineChart = () => {
                 visible: false,
                 tickMarkFormatter: () => "",
                 labelFormatter: () => '',
-                borderColor: '#E2E4E7', 
+                borderColor: '#E2E4E7',
             },
             rightPriceScale: {
-                borderColor: '#E2E4E7', 
+                borderColor: '#E2E4E7',
+                visible: true,
+                width: isMobile ? 40 : 50, 
             },
         });
 
@@ -173,9 +177,9 @@ const LineChart = () => {
                     className={`chart ${isFullScreen ? 'fullscreen' : ''}`}
                     ref={chartContainerRef}
                     style={{
-                        width: isFullScreen ? '100%' : '1400px',
+                        width: isFullScreen ? '100%' : '100%',
                         height: isFullScreen ? '100%' : '500px',
-                        borderLeft: '1px solid #E2E4E7', 
+                        borderLeft: '1px solid #E2E4E7',
                     }}
                 ></div>
             ) : null}

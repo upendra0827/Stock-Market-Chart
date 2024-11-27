@@ -32,7 +32,7 @@ const StockDataProvider = ({ children }) => {
     const [stockData, setStockData] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const fetchData = async (interval, numValues = 1000, startDate = '2024-10-01') => {
+    const fetchData = async (interval, numValues = 300, startDate = '2024-10-01') => {
         setLoading(true)
 
         setTimeout(() => {

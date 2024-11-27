@@ -31,7 +31,6 @@ function generateDataWithSharpTurns(numValues, startDate = '2024-10-01') {
 const StockDataProvider = ({ children }) => {
     const [stockData, setStockData] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
 
     const fetchData = async (interval, numValues = 1000, startDate = '2024-10-01') => {
         setLoading(true)
@@ -45,7 +44,7 @@ const StockDataProvider = ({ children }) => {
 
     return (
         <StockDataContext.Provider
-            value={{ stockData, fetchData, loading, error }}
+            value={{ stockData, fetchData, loading }}
         >
             {children}
         </StockDataContext.Provider>

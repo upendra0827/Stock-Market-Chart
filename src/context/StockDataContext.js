@@ -1,17 +1,31 @@
 import React, { createContext, useContext, useState } from "react";
-import { processStockData } from "../utils";
-import { fetchStockData } from "../store";
-import { extractValueAndUnit } from "../utils";
 
 const StockDataContext = createContext();
 
 export const useStockData = () => useContext(StockDataContext);
 
-const handleFetchStockDetails = async (interval) => {
-    const { value, unit } = extractValueAndUnit(interval)
+function generateDataWithSharpTurns(numValues, startDate = '2024-10-01') {
+    const data = [];
+    let currentValue = 100;
 
-    const response = await fetchStockData({ unit })
-    return response
+    for (let i = 0; i < numValues; i++) {
+        const direction = Math.random() < 0.5 ? -1 : 1;
+
+        const newValue = Math.max(0, currentValue + direction * (Math.random() * 5 + 1));
+
+        const date = new Date(startDate);
+        date.setDate(date.getDate() + i);
+        const formattedDate = date.toISOString().split('T')[0];
+
+        data.push({
+            time: formattedDate,
+            value: Number(newValue.toFixed(2)) 
+        });
+
+        currentValue = newValue;
+    }
+
+    return data;
 }
 
 const StockDataProvider = ({ children }) => {
@@ -19,26 +33,14 @@ const StockDataProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const fetchData = async (interval) => {
+    const fetchData = async (interval, numValues = 1000, startDate = '2024-10-01') => {
+        setLoading(true)
 
-        try {
-            setLoading(true);
-            const response = await handleFetchStockDetails(interval)
-
-            if (response.status === 200) {
-                const rawData = response.data;
-
-                const processedData = processStockData(rawData, interval);
-                setStockData(processedData);
-            } else {
-                console.log("Status:", response.status);
-            }
-        } catch (error) {
-            console.error("Error:", error.message);
-            setError(error.message);
-        } finally {
-            setLoading(false);
-        }
+        setTimeout(() => {
+            const response = generateDataWithSharpTurns(numValues)
+            setLoading(false)
+            setStockData(response)
+        }, 1000);
     };
 
     return (

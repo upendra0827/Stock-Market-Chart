@@ -9,9 +9,11 @@ const StockChart = () => {
 
     const { stockData, fetchData } = useStockData();
 
-    const [openPrice, closePrice] = [stockData?.series[0].data[0], stockData?.series[0].data.at(-1)]
+    const oldValue = stockData?.at(0)['value']
 
-    const changeOfPriceInPercentage = ((closePrice - openPrice) / openPrice) * 100
+    const latestValue = stockData?.at(-1)['value']
+
+    const changeOfPriceInPercentage = ((latestValue - oldValue) / oldValue) * 100
 
     const sections = ['Summary', 'Charts', 'Statistics', 'Analytics', 'Settings']
 
@@ -20,7 +22,7 @@ const StockChart = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetchData('1d');
+        fetchData('1d', 1000);
 
         const path = window.location.pathname;
         const extractedPart = path.split('/')[1];
@@ -38,11 +40,11 @@ const StockChart = () => {
         <div className="charts__container">
             <header>
                 <div>
-                    <div className="current-price">{closePrice}</div>
+                    <div className="current-price">{latestValue}</div>
                     <div className="currency">USD</div>
                 </div>
                 <div className={`percentage-change ${Number(changeOfPriceInPercentage) < 0 ? 'negative' : 'positive'}`}>
-                    {`${(closePrice - openPrice).toFixed(2)} (${changeOfPriceInPercentage.toFixed(2)}%)`}
+                    {`${(latestValue - oldValue).toFixed(2)} (${changeOfPriceInPercentage.toFixed(2)}%)`}
                 </div>
             </header>
             <div className="charts__container__sections">

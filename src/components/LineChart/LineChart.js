@@ -4,6 +4,8 @@ import { useStockData } from "../../context/StockDataContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import CompareIcon from '../../Icons/Compare.svg';
 import FullScreenIcon from '../../Icons/FullScreen.svg';
+import CloseIcon from '../../Icons/Close.svg';
+import LoadingIcon from '../../Icons/Loading.svg'
 
 const LineChart = () => {
     const { stockData, fetchData, loading } = useStockData();
@@ -13,6 +15,7 @@ const LineChart = () => {
 
     const [activeInterval, setActiveInterval] = useState('1d');
     const [isFullScreen, setIsFullScreen] = useState(false);
+    const containerRef = useRef(null)
 
     const getFilterValue = (key) => {
         const searchParams = new URLSearchParams(location.search);
@@ -79,7 +82,7 @@ const LineChart = () => {
             rightPriceScale: {
                 borderColor: '#E2E4E7',
                 visible: true,
-                width: isMobile ? 40 : 50, 
+                width: isMobile ? 40 : 50,
             },
         });
 
@@ -129,10 +132,11 @@ const LineChart = () => {
         return () => {
             chart.remove();
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [stockData]);
 
     const handleFullScreen = () => {
-        const container = chartContainerRef.current;
+        const container = containerRef.current;
         if (container) {
             if (container.requestFullscreen) {
                 container.requestFullscreen();
@@ -145,11 +149,18 @@ const LineChart = () => {
         }
     };
 
+    const handleExitFullScreen = () => {
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        }
+        setIsFullScreen(false);
+    }
+
     return (
         <>
             <div className="charts__container__intervals">
                 <div>
-                    <div onClick={handleFullScreen}>
+                    <div onClick={handleFullScreen} className='charts__container__intervals_fullscreen'>
                         <img src={FullScreenIcon} alt="fullscreen-icon" />
                         <div>Full Screen</div>
                     </div>
@@ -170,19 +181,33 @@ const LineChart = () => {
                     ))}
                 </div>
             </div>
-            {loading ? (
-                <div>Loading............</div>
-            ) : stockData?.length ? (
-                <div
-                    className={`chart ${isFullScreen ? 'fullscreen' : ''}`}
-                    ref={chartContainerRef}
-                    style={{
-                        width: isFullScreen ? '100%' : '100%',
-                        height: isFullScreen ? '100%' : '500px',
-                        borderLeft: '1px solid #E2E4E7',
-                    }}
-                ></div>
-            ) : null}
+            <div className='chart__container__chart'>
+                {loading ? (
+                    <img src={LoadingIcon} alt="Loading..." width="100" height="100" />
+                ) : stockData?.length ? (
+                    <div ref={containerRef} className={`chart__container ${isFullScreen ? 'fullscreen' : ''}`}>
+                        <div
+                            className={`chart ${isFullScreen && 'fullscreen-chart'}`}
+                            ref={chartContainerRef}
+                            style={{
+                                width: isFullScreen ? '100%' : '100%',
+                                height: isFullScreen ? '100%' : '500px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}
+                        ></div>
+                        {isFullScreen && (
+                            <div
+                                className="chart__container__exit-fullscreen-icon"
+                                onClick={handleExitFullScreen}
+                            >
+                                <img src={CloseIcon} alt='close-icon' />
+                            </div>
+                        )}
+                    </div>
+                ) : null}
+            </div>
         </>
     );
 };

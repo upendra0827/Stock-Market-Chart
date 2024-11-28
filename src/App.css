@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* min-height: 100vh; */
 }
 
 .charts__container {
@@ -22,7 +21,6 @@
 .charts__container>header>div {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: center; */
 }
 
 .current-price {
@@ -131,6 +129,11 @@
   margin: 0 auto;
 }
 
+.fullscreen-chart {
+  width: 1200px !important;
+  height: 700px !important;
+}
+
 .statistics {
   text-align: left;
 }
@@ -204,6 +207,18 @@
   }
 }
 
+.chart-chart__container {
+  display: flex;
+  align-items: center;
+}
+
+.chart__container__exit-fullscreen-icon {
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  cursor: pointer;
+}
+
 @media (max-width: 480px) {
   .current-price {
     font-size: 30px;
@@ -254,10 +269,18 @@
 }
 
 
-
-.chart.fullscreen {
+.fullscreen {
   width: 900px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #fbfdff;
+}
+
+.charts__container__intervals_fullscreen {
+  cursor: pointer;
+}
+
+.chart__container__chart {
+  margin-top: 20px;
 }

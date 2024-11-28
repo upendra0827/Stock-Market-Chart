@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 
 import { useStockData } from "../../context/StockDataContext";
+import Loading2Icon from '../../Icons/Loading2.svg'
 
 
 const StockChart = () => {
 
-    const { stockData, fetchData } = useStockData();
+    const { stockData, fetchData, loading } = useStockData();
 
     const oldValue = stockData?.at(0)['value']
 
@@ -38,15 +39,20 @@ const StockChart = () => {
 
     return (
         <div className="charts__container">
-            <header>
-                <div>
-                    <div className="current-price">{latestValue}</div>
-                    <div className="currency">USD</div>
-                </div>
-                <div className={`percentage-change ${Number(changeOfPriceInPercentage) < 0 ? 'negative' : 'positive'}`}>
-                    {`${(latestValue - oldValue).toFixed(2)} (${changeOfPriceInPercentage.toFixed(2)}%)`}
-                </div>
-            </header>
+            {loading && <div style={{ height: '111px', display: 'flex' }}>
+                <img src={Loading2Icon} alt="Loading..." width="100" height="100" />
+            </div>}
+            {!loading &&
+                <header>
+                    <div>
+                        <div className="current-price">{latestValue}</div>
+                        <div className="currency">USD</div>
+                    </div>
+                    <div className={`percentage-change ${Number(changeOfPriceInPercentage) < 0 ? 'negative' : 'positive'}`}>
+                        {`${(latestValue - oldValue).toFixed(2)} (${changeOfPriceInPercentage.toFixed(2)}%)`}
+                    </div>
+                </header>
+            }
             <div className="charts__container__sections">
                 {sections.map((section, i) => (
                     <button key={i} className={`${section.toLowerCase() === activeSection.toLowerCase() && 'active-section'}`} onClick={() => handleChangeSection({ section })}>{section}</button>

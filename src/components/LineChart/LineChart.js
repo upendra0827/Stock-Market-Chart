@@ -63,7 +63,9 @@ const LineChart = () => {
                 crosshairMarkerVisible: false,
             },
             grid: {
-                vertLines: { visible: true },
+                vertLines: {
+                    visible: true, 
+                },
                 horzLines: { visible: false },
             },
             timeScale: {
@@ -89,7 +91,7 @@ const LineChart = () => {
 
         const areaSeries = chart.addAreaSeries({
             topColor: '#E8E7FF',
-            bottomColor: 'white',
+            bottomColor: 'rgba(255, 255, 255, 0.2)',
             lineColor: '#4B40EE',
             lineWidth: 2,
             crosshairMarkerVisible: false,

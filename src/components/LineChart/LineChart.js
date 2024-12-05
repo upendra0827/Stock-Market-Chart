@@ -27,6 +27,7 @@ const LineChart = () => {
         { value: '3d', isSelected: true },
         { value: '1w', isSelected: false },
         { value: '1m', isSelected: false },
+        { value: '6m', isSelected: false },
         { value: '1y', isSelected: false },
         { value: 'max', isSelected: true },
     ];
@@ -132,7 +133,7 @@ const LineChart = () => {
         return () => {
             chart.remove();
         };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [stockData]);
 
     const handleFullScreen = () => {

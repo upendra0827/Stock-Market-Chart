@@ -39,7 +39,7 @@ const StockChart = () => {
 
     return (
         <div className="charts__container">
-            {loading && <div style={{ height: '111px', display: 'flex' }}>
+            {loading && <div style={{ height: '94px', display: 'flex' }}>
                 <img src={Loading2Icon} alt="Loading..." width="100" height="100" />
             </div>}
             {!loading &&
@@ -49,7 +49,7 @@ const StockChart = () => {
                         <div className="currency">USD</div>
                     </div>
                     <div className={`percentage-change ${Number(changeOfPriceInPercentage) < 0 ? 'negative' : 'positive'}`}>
-                        {`${(latestValue - oldValue).toFixed(2)} (${changeOfPriceInPercentage.toFixed(2)}%)`}
+                        {`${Number(changeOfPriceInPercentage) >= 0 ? '+' : ''} ${(latestValue - oldValue).toFixed(2)} (${changeOfPriceInPercentage.toFixed(2)}%)`}
                     </div>
                 </header>
             }
